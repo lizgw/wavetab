@@ -24,7 +24,6 @@ hr {
 
     background: #ffffff;
     background-size: 600% 600%;
-    animation: Animation 25s ease-in-out infinite;
 
     display: flex;
     text-align: center;

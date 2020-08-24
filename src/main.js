@@ -209,11 +209,15 @@ function pickColors(num)
 
 		// get gradient speed and set the gradient
 		chrome.storage.sync.get({
-			gradientSpeed: 25
+			gradientSpeed: 25,
+			animateGradient: true
 		}, function(items) {
 			container.style.background = "linear-gradient(45deg, " + colorString + ")";
 			container.style.backgroundSize = "200% 200%";
 			container.style.animation = "Animation " + items.gradientSpeed + "s ease-in-out infinite";
+
+			if (!items.animateGradient)
+				container.style.webkitAnimationPlayState = "paused";
 		});
 
 		// set the options menu info

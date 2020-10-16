@@ -60,6 +60,8 @@ function setupEventListeners()
 		}
 		else if (radioBtns[i].classList.contains("grad-selection-radio"))
 			radioBtns[i].onclick = changeSelectionMode;
+		else if (radioBtns[i].classList.contains("font-selection-radio"))
+			radioBtns[i].onclick = changeFont;
 	}
 
 	// setup event listeners for buttons
@@ -72,6 +74,9 @@ function setupEventListeners()
 
 	// setup event listener for range slider
 	document.getElementById("opt-speed").oninput = changeGradientSpeed;
+
+	// for font input textbox
+	document.getElementById("font-text-input").onblur = updateFont;
 
 	// add event listener for when storage changes
 	chrome.storage.onChanged.addListener(updateDisplay);

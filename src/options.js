@@ -24,10 +24,16 @@ function updatePrefs(event) {
 	{
 		formatDateString();
 		updateDate();
+	} else if (id == "animateGradient") {
+		if (event.target.checked) {
+			container.style.webkitAnimationPlayState = "running";
+		} else {
+			container.style.webkitAnimationPlayState = "paused";
+		}
 	}
 }
 
-// called when one of the gradien selection radios is pressed
+// called when one of the gradient selection radios is pressed
 function changeSelectionMode(event)
 {
 	// change it to either "random" or "select"
@@ -61,7 +67,8 @@ function restoreOptions()
 		gradientSpeed: 25,
 		showDayOfWeek: true,
 		showDayOfMonth: true,
-		showYear: true
+		showYear: true,
+		animateGradient: true
 	}, function(items) {
 		// set up switches according to stored options
 		document.getElementById('showTime').checked = items.showTime;
@@ -70,6 +77,7 @@ function restoreOptions()
 		document.getElementById("showDayOfWeek").checked = items.showDayOfWeek;
 		document.getElementById("showDayOfMonth").checked = items.showDayOfMonth;
 		document.getElementById("showYear").checked = items.showYear;
+		document.getElementById("animateGradient").checked = items.animateGradient;
 
 		// set the slider position to the current value		
 		document.getElementById("opt-speed").value = items.gradientSpeed;
@@ -115,6 +123,7 @@ function resetOptions()
 		options.showDayOfWeek = true,
 		options.showDayOfMonth = true,
 		options.showYear = true
+		options.animateGradient = true;
 
 		// set the storage
 		chrome.storage.sync.set(options);

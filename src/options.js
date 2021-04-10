@@ -38,30 +38,35 @@ function changeSelectionMode(event) {
 }
 
 function changeFont(event) {
+  // take out the "opt-font-" from the target
   var selection = event.target.id.substring(9);
   var textDisplay = document.getElementById("text-display");
+  var customRadioSelected = document.getElementById("opt-font-custom").checked;
 
   if (selection == "quicksand") {
 		textDisplay.style.fontFamily = "";
     textDisplay.classList.add("quicksand");
-  } else {
-		updateFont();
+    console.log("changed font to quicksand");
+  } else if (selection == "custom" || customRadioSelected && event.target.id == "font-text-input") {
+		updateCustomFont();
 	}
 
 	options["font"] = selection;
 	chrome.storage.sync.set(options);
 }
 
-function updateFont(event) {
-	console.log("updating font...");
+function updateCustomFont() {
 	var textDisplay = document.getElementById("text-display");
   var fontInput = document.getElementById("font-text-input").value;
-
-  console.log("font: " + fontInput);
-	// sanitize!
-  // make sure the font can load!!
+  
+	// TODO: sanitize!
+  // TODO: make sure the font can load!!
   textDisplay.classList.remove("quicksand");
 	textDisplay.style.fontFamily = fontInput;
+  console.log("changed font to " + fontInput);
+
+  options["customFont"] = fontInput;
+  chrome.storage.sync.set(options);
 }
 
 // called when the slider for gradient speed is dragged
@@ -93,7 +98,8 @@ function restoreOptions() {
       showDayOfMonth: true,
       showYear: true,
       animateGradient: true,
-			font: "quicksand"
+			font: "quicksand",
+      customFont: ""
     },
     function (items) {
       // set up switches according to stored options
@@ -127,6 +133,8 @@ function restoreOptions() {
 			} else {
 				document.getElementById("opt-font-quicksand").checked = false;
 				document.getElementById("opt-font-custom").checked = true;
+        document.getElementById("font-text-input").value = items.customFont;
+        document.getElementById("text-display").style.fontFamily = items.customFont;
 			}
 
       // show elements that are enabled
@@ -160,6 +168,7 @@ function resetOptions() {
       (options.showYear = true);
     options.animateGradient = true;
 		options.font = "quicksand";
+    options.customFont = "";
 
     // set the storage
     chrome.storage.sync.set(options);

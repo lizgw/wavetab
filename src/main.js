@@ -75,8 +75,10 @@ function setupEventListeners()
 	// setup event listener for range slider
 	document.getElementById("opt-speed").oninput = changeGradientSpeed;
 
-	// for font input textbox
-	document.getElementById("font-text-input").onblur = updateFont;
+	// for font input textbox (click buttons or type in box)
+	document.getElementById("font-text-input").onchange = changeFont;
+	document.getElementById("opt-font-quicksand").onclick = changeFont;
+	document.getElementById("opt-font-custom").onclick = changeFont;
 
 	// add event listener for when storage changes
 	chrome.storage.onChanged.addListener(updateDisplay);

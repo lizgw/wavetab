@@ -58,15 +58,21 @@ function changeFont(event) {
 function updateCustomFont() {
 	var textDisplay = document.getElementById("text-display");
   var fontInput = document.getElementById("font-text-input").value;
+  // do some super basic string escaping so nothing too crazy ends up in browser storage
+  const badChars = /[<>;'"`\/\\]/;
   
-	// TODO: sanitize!
-  // TODO: make sure the font can load!!
-  textDisplay.classList.remove("quicksand");
-	textDisplay.style.fontFamily = fontInput;
-  console.log("changed font to " + fontInput);
+  if (fontInput.search(badChars) != -1) {
+    fontInput = "";
+    document.getElementById("font-text-input").value = "";
+    console.log("Invalid characters detected in font name");
+  } else {
+    textDisplay.classList.remove("quicksand");
+    textDisplay.style.fontFamily = fontInput;
+    console.log("changed font to " + fontInput);
 
-  options["customFont"] = fontInput;
-  chrome.storage.sync.set(options);
+    options["customFont"] = fontInput;
+    chrome.storage.sync.set(options);
+  }
 }
 
 // called when the slider for gradient speed is dragged

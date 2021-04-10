@@ -46,7 +46,6 @@ function changeFont(event) {
   if (selection == "quicksand") {
 		textDisplay.style.fontFamily = "";
     textDisplay.classList.add("quicksand");
-    console.log("changed font to quicksand");
   } else if (selection == "custom" || customRadioSelected && event.target.id == "font-text-input") {
 		updateCustomFont();
 	}
@@ -64,11 +63,10 @@ function updateCustomFont() {
   if (fontInput.search(badChars) != -1) {
     fontInput = "";
     document.getElementById("font-text-input").value = "";
-    console.log("Invalid characters detected in font name");
+    console.error("Invalid characters detected in font name");
   } else {
     textDisplay.classList.remove("quicksand");
     textDisplay.style.fontFamily = fontInput;
-    console.log("changed font to " + fontInput);
 
     options["customFont"] = fontInput;
     chrome.storage.sync.set(options);

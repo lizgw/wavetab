@@ -40,10 +40,13 @@ hr {
     100%{background-position:0% 99%}
 }
 
+.quicksand {
+    font-family: 'Quicksand', sans-serif;
+}
+
 /* time & date */
 #text-display {
     color: #ffffff;
-    font-family: 'Quicksand', sans-serif;
     align-self: center;
     margin: auto;
 }

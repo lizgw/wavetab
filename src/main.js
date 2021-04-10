@@ -60,6 +60,8 @@ function setupEventListeners()
 		}
 		else if (radioBtns[i].classList.contains("grad-selection-radio"))
 			radioBtns[i].onclick = changeSelectionMode;
+		else if (radioBtns[i].classList.contains("font-selection-radio"))
+			radioBtns[i].onclick = changeFont;
 	}
 
 	// setup event listeners for buttons
@@ -73,17 +75,13 @@ function setupEventListeners()
 	// setup event listener for range slider
 	document.getElementById("opt-speed").oninput = changeGradientSpeed;
 
+	// for font input textbox (click buttons or type in box)
+	document.getElementById("font-text-input").onchange = changeFont;
+	document.getElementById("opt-font-quicksand").onclick = changeFont;
+	document.getElementById("opt-font-custom").onclick = changeFont;
+
 	// add event listener for when storage changes
 	chrome.storage.onChanged.addListener(updateDisplay);
-
-	// handle keyboard shortcuts
-	document.onkeyup = function (event)
-	{
-		if(event.which == 79) // o key
-			toggleOptions();
-
-		return false;
-	}
 }
 
 function showWelcomeMessage()
